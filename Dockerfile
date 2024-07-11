@@ -3,7 +3,7 @@ FROM nginx:stable
 
 # Install required packages
 RUN apt-get update && \
-    apt-get install -y vim iputils-ping curl wget && \
+    apt-get install -y vim iputils-ping curl wget less && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 

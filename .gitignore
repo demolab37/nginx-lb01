@@ -1,5 +1,6 @@
 # MacOS's hidden file
 .DS_Store
+.notme
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -1,14 +1,18 @@
-# Use the official stable NGINX image as the base
+# Use the official NGINX stable image as a base
 FROM nginx:stable
 
-# Install required packages
-RUN apt-get update && \
-    apt-get install -y vim iputils-ping curl wget less && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+# Install necessary tools and clean up cache after installation
+RUN apt-get update && apt-get install -y \
+    wget \
+    curl \
+    iputils-ping \
+    less \
+    procps \
+    vim \
+    && rm -rf /var/lib/apt/lists/*
 
-# Expose port 80
+# Expose the default NGINX port
 EXPOSE 80
 
-# Start NGINX
+# Start NGINX server
 CMD ["nginx", "-g", "daemon off;"]

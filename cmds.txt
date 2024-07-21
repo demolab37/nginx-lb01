@@ -1,0 +1,42 @@
+# build image
+docker build -t nginx-lb01 .
+
+# expose port
+docker run -d --rm --name nginx-lb01 -p 80:80 nginx-lb01
+
+docker run -d --rm --name nginx-lb01 -v $(pwd)/out:/usr/share/nginx/html:rw -v $(pwd)/nginx.conf:/etc/nginx/nginx.conf:rw -p 80:80 nginx-lb01
+
+docker exec -it nginx-lb01 bash
+
+docker stop nginx-lb01
+
+docker ps -a |grep lb01
+
+docker images |grep lb01
+
+# modules that nginx is compiled with
+nginx -V
+
+ps axf |grep nginx
+
+# logout docker account
+docker logout
+
+# login with username and password
+docker login
+
+# push docker images to dockerhub
+docker tag nginx-lb01:latest docker6617/nginx-lb01:latest
+
+docker push docker6617/nginx-lb01:latest
+
+# watch load balancing between the upstream hosts
+watch -n0.5 -d "curl -s localhost"
+
+watch -n0.5 -d "curl -s example.com" 
+
+# looking at server headers
+http -v example.com/headers
+
+i# watch headers changes
+watch -n0.5 -d "http -v example.com/headers"
